@@ -4,6 +4,7 @@ import hr.algebra.advanced_interoperability_project.domain.Mobile;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 import hr.algebra.advanced_interoperability_project.service.MobileService;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,9 @@ public class MobileController {
     public ResponseEntity<?> saveMobile(@RequestBody @Valid MobileDTO mobileDTO) {
         try {
             mobileService.saveMobile(mobileDTO);
-            return ResponseEntity.ok("Mobile has been saved");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("Mobile has been saved");
         }
         catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -53,7 +56,9 @@ public class MobileController {
 
         try {
             mobileService.updateMobile(id, mobileDTO);
-            return ResponseEntity.ok("Mobile with id " + id + " has been updated");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("Mobile with id " + id + " has been updated");
         }
         catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
