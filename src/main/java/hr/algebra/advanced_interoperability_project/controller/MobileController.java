@@ -1,17 +1,14 @@
 package hr.algebra.advanced_interoperability_project.controller;
 
-import hr.algebra.advanced_interoperability_project.domain.Mobile;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 import hr.algebra.advanced_interoperability_project.service.MobileService;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/mobiles")

@@ -33,8 +33,8 @@ public class MobileServiceImpl implements MobileService {
     }
 
     @Override
-    public Mobile saveMobile(MobileDTO mobileDTO) {
-        return mobileRepository.save(MobileMapper.toEntity(mobileDTO));
+    public void saveMobile(MobileDTO mobileDTO) {
+        mobileRepository.save(MobileMapper.toEntity(mobileDTO));
     }
 
     @Override

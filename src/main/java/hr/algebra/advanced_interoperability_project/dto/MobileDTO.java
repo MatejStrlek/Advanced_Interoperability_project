@@ -1,6 +1,5 @@
 package hr.algebra.advanced_interoperability_project.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class MobileDTO {
