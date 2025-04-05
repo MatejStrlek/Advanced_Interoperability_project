@@ -10,7 +10,7 @@ import java.io.IOException;
 @Component
 @Order(1)
 public class TransactionFilter implements Filter {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(HttpMethodFilter.class);
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TransactionFilter.class);
 
     @Override
     public void doFilter(
