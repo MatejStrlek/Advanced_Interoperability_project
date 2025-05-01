@@ -4,7 +4,6 @@ import hr.algebra.advanced_interoperability_project.domain.Mobile;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 import hr.algebra.advanced_interoperability_project.mapper.MobileMapper;
 import hr.algebra.advanced_interoperability_project.repository.MobileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class MobileServiceImpl implements MobileService {
-    @Autowired
     private final MobileRepository mobileRepository;
 
     public MobileServiceImpl(MobileRepository mobileRepository) {

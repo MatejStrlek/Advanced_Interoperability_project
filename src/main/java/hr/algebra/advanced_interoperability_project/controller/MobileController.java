@@ -34,7 +34,7 @@ public class MobileController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveMobile(@RequestBody @Valid MobileDTO mobileDTO) {
+    public ResponseEntity<String> saveMobile(@RequestBody @Valid MobileDTO mobileDTO) {
         try {
             mobileService.saveMobile(mobileDTO);
             return ResponseEntity.ok()
@@ -47,7 +47,7 @@ public class MobileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateMobile(@PathVariable Long id, @RequestBody @Valid MobileDTO mobileDTO) {
+    public ResponseEntity<String> updateMobile(@PathVariable Long id, @RequestBody @Valid MobileDTO mobileDTO) {
 
         if (mobileService.getMobileById(id).isEmpty()) return ResponseEntity.notFound().build();
 
@@ -66,7 +66,7 @@ public class MobileController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMobile(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMobile(@PathVariable Long id) {
 
         if (mobileService.getMobileById(id).isEmpty()) return ResponseEntity.notFound().build();
 

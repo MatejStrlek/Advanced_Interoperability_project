@@ -4,6 +4,11 @@ import hr.algebra.advanced_interoperability_project.domain.Mobile;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 
 public class MobileMapper {
+
+    private MobileMapper() {
+        // Private constructor to prevent instantiation
+    }
+
     public static MobileDTO toDTO(Mobile mobile) {
         return new MobileDTO(mobile.getName(), mobile.getBrand(), mobile.getPrice(), mobile.getDescription(), mobile.getRating());
     }
