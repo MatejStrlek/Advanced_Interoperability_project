@@ -2,7 +2,9 @@ package hr.algebra.advanced_interoperability_project.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public class MobileDTO {
+import java.io.Serializable;
+
+public class MobileDTO implements Serializable {
     @NotNull(message = "Name is required")
     private String name;
     @NotNull(message = "Brand is required")

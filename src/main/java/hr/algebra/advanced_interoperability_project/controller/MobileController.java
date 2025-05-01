@@ -1,6 +1,7 @@
 package hr.algebra.advanced_interoperability_project.controller;
 
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
+import hr.algebra.advanced_interoperability_project.serialization.MobileSerializationUtils;
 import hr.algebra.advanced_interoperability_project.service.MobileService;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
@@ -29,7 +30,16 @@ public class MobileController {
     @GetMapping("/{id}")
     public ResponseEntity<MobileDTO> getMobileById(@PathVariable Long id) {
         return mobileService.getMobileById(id)
-                .map(ResponseEntity::ok)
+                .map(mobile -> {
+                            MobileSerializationUtils.serializeMobileToFile(mobile);
+
+                            try {
+                                MobileDTO deserializedMobile = MobileSerializationUtils.deserializeMobileFromFileAndValidate();
+                                return ResponseEntity.ok(deserializedMobile);
+                            } catch (RuntimeException e) {
+                               throw new RuntimeException("Error deserializing mobile object", e);
+                            }
+                        })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
