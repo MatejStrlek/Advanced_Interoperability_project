@@ -83,5 +83,4 @@ public class Mobile {
     public double getRating() {
         return rating;
     }
-
 }

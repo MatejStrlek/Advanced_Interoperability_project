@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @Service
 public class RefreshTokenService {
-
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
@@ -39,5 +38,4 @@ public class RefreshTokenService {
         }
         return token;
     }
-
 }

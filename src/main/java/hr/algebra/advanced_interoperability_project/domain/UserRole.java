@@ -7,7 +7,6 @@ import lombok.Data;
 @Table(name = "roles")
 @Data
 public class UserRole {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
