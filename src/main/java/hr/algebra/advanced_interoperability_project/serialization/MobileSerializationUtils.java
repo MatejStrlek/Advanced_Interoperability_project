@@ -1,13 +1,9 @@
 package hr.algebra.advanced_interoperability_project.serialization;
 
-import hr.algebra.advanced_interoperability_project.domain.Mobile;
-import hr.algebra.advanced_interoperability_project.dto.HackerDTO;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 import hr.algebra.advanced_interoperability_project.exception.DeserializationWhitelistException;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
