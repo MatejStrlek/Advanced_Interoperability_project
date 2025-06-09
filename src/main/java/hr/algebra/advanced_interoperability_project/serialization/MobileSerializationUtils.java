@@ -1,5 +1,6 @@
 package hr.algebra.advanced_interoperability_project.serialization;
 
+import hr.algebra.advanced_interoperability_project.dto.HackerDTO;
 import hr.algebra.advanced_interoperability_project.dto.MobileDTO;
 import hr.algebra.advanced_interoperability_project.exception.DeserializationWhitelistException;
 
