@@ -18,7 +18,7 @@ public class MobileSerializationUtils {
     public static void serializeMobileToFile(MobileDTO mobileDTO) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(mobileDTO);
-            //oos.writeObject(new HackerDTO("Trying to exploit"));
+            oos.writeObject(new HackerDTO("Trying to exploit"));
         } catch (IOException e) {
             throw new RuntimeException("Error serializing mobile object", e);
         }
@@ -61,7 +61,7 @@ public class MobileSerializationUtils {
         String className = obj.getClass().getName();
 
         if (!whitelist.contains(className)) {
-            throw new DeserializationWhitelistException(className + " is not whitelisted for deserialization.");
+            throw new DeserializationWhitelistException("Class " + className + " is not whitelisted for deserialization.");
         }
     }
 }
