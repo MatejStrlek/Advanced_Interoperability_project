@@ -10,7 +10,6 @@ class MobileMapperTest {
     @Test
     void toDTO_shouldMapCorrectly() {
         Mobile mobile = new Mobile(1L, "Galaxy S24", "Samsung", 899.99, "Flagship phone", 4.6);
-
         MobileDTO dto = MobileMapper.toDTO(mobile);
 
         assertEquals("Galaxy S24", dto.getName());

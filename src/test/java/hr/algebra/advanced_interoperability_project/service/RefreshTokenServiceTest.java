@@ -58,37 +58,30 @@ class RefreshTokenServiceTest {
                 .userInfo(userInfo)
                 .expiryDate(Instant.now().plusMillis(600000))
                 .build();
-
         when(refreshTokenRepository.findByToken("abc123")).thenReturn(Optional.of(token));
-
         Optional<RefreshToken> result = refreshTokenService.findByToken("abc123");
-
         assertTrue(result.isPresent());
         assertEquals("abc123", result.get().getToken());
     }
 
     @Test
-    void verifyExpiration_shouldReturnToken_whenNotExpired() {
+    void verifyExpiration_shouldReturnToken() {
         RefreshToken token = RefreshToken.builder()
                 .token("abc123")
                 .expiryDate(Instant.now().plusMillis(600000))
                 .build();
-
         RefreshToken result = refreshTokenService.verifyExpiration(token);
-
         assertEquals(token, result);
     }
 
     @Test
-    void verifyExpiration_shouldThrowException_whenExpired() {
+    void verifyExpiration_shouldThrowException() {
         RefreshToken token = RefreshToken.builder()
                 .token("expiredToken")
                 .expiryDate(Instant.now().minusMillis(1000))
                 .build();
-
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
                 refreshTokenService.verifyExpiration(token));
-
         assertTrue(exception.getMessage().contains("Refresh token is expired"));
         verify(refreshTokenRepository).delete(token);
     }

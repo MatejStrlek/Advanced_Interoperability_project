@@ -35,11 +35,11 @@ class JwtAuthFilterTest {
     @BeforeEach
     void setUp() {
         jwtAuthFilter = new JwtAuthFilter(jwtService, userDetailsServiceImpl);
-        SecurityContextHolder.clearContext(); // Clear before each test
+        SecurityContextHolder.clearContext();
     }
 
     @Test
-    void testDoFilterInternal_validToken_authenticationSet() throws Exception {
+    void testDoFilterInternal_validToken() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("Authorization", "Bearer test-token");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -58,7 +58,7 @@ class JwtAuthFilterTest {
     }
 
     @Test
-    void testDoFilterInternal_noHeader_noAuthenticationSet() throws Exception {
+    void testDoFilterInternal() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -69,7 +69,7 @@ class JwtAuthFilterTest {
     }
 
     @Test
-    void testDoFilterInternal_headerWithoutBearer_noAuthenticationSet() throws Exception {
+    void testDoFilterInternal_headerWithoutBearer() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("Authorization", "Basic some-token");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -81,7 +81,7 @@ class JwtAuthFilterTest {
     }
 
     @Test
-    void testDoFilterInternal_invalidToken_doesNotAuthenticate() throws Exception {
+    void testDoFilterInternal_invalidToken() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("Authorization", "Bearer invalid-token");
         MockHttpServletResponse response = new MockHttpServletResponse();

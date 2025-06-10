@@ -36,7 +36,6 @@ class MobileServiceImplTest {
     @Test
     void getAllMobiles_shouldReturnMappedDTOs() {
         when(mobileRepository.findAll()).thenReturn(List.of(mobile));
-
         List<MobileDTO> result = mobileService.getAllMobiles();
 
         assertEquals(1, result.size());
@@ -48,53 +47,43 @@ class MobileServiceImplTest {
     }
 
     @Test
-    void getMobileById_shouldReturnDTO_whenFound() {
+    void getMobileById_shouldReturnDT() {
         when(mobileRepository.findById(1L)).thenReturn(Optional.of(mobile));
-
         Optional<MobileDTO> result = mobileService.getMobileById(1L);
-
         assertTrue(result.isPresent());
         assertEquals("Pixel 8", result.get().getName());
     }
 
     @Test
-    void getMobileById_shouldReturnEmpty_whenNotFound() {
+    void getMobileById_shouldReturnEmpty() {
         when(mobileRepository.findById(1L)).thenReturn(Optional.empty());
-
         Optional<MobileDTO> result = mobileService.getMobileById(1L);
-
         assertFalse(result.isPresent());
     }
 
     @Test
     void saveMobile_shouldCallRepositoryWithEntity() {
         mobileService.saveMobile(mobileDTO);
-
         verify(mobileRepository, times(1)).save(any(Mobile.class));
     }
 
     @Test
-    void updateMobile_shouldUpdateEntity_whenMobileExists() {
+    void updateMobile_shouldUpdateEntity() {
         when(mobileRepository.findById(1L)).thenReturn(Optional.of(mobile));
-
         mobileService.updateMobile(1L, mobileDTO);
-
         verify(mobileRepository).save(any(Mobile.class));
     }
 
     @Test
-    void updateMobile_shouldNotSave_whenMobileDoesNotExist() {
+    void updateMobile_shouldNotSave() {
         when(mobileRepository.findById(1L)).thenReturn(Optional.empty());
-
         mobileService.updateMobile(1L, mobileDTO);
-
         verify(mobileRepository, never()).save(any());
     }
 
     @Test
     void deleteMobile_shouldCallDeleteById() {
         mobileService.deleteMobile(1L);
-
         verify(mobileRepository, times(1)).deleteById(1L);
     }
 }

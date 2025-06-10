@@ -20,9 +20,8 @@ class JwtServiceTest {
     }
 
     @Test
-    void generateToken_and_extractUsername_shouldWork() {
+    void generateToken_and_extractUsername() {
         String token = jwtService.generateToken("testUser");
-
         String extractedUsername = jwtService.extractUsername(token);
         assertEquals("testUser", extractedUsername);
     }
@@ -30,7 +29,6 @@ class JwtServiceTest {
     @Test
     void generateToken_and_extractExpiration_shouldReturnFutureDate() {
         String token = jwtService.generateToken("testUser");
-
         Date expiration = jwtService.extractExpiration(token);
         assertTrue(expiration.after(new Date()));
     }
@@ -38,28 +36,23 @@ class JwtServiceTest {
     @Test
     void validateToken_shouldReturnTrue_forValidToken() {
         String token = jwtService.generateToken("testUser");
-
         UserDetails mockUser = mock(UserDetails.class);
         when(mockUser.getUsername()).thenReturn("testUser");
-
         assertTrue(jwtService.validateToken(token, mockUser));
     }
 
     @Test
     void validateToken_shouldReturnFalse_forWrongUser() {
         String token = jwtService.generateToken("testUser");
-
         UserDetails mockUser = mock(UserDetails.class);
         when(mockUser.getUsername()).thenReturn("wrongUser");
-
         assertFalse(jwtService.validateToken(token, mockUser));
     }
 
     @Test
-    void extractClaim_shouldReturnCorrectSubject() {
+    void extractClaim_shouldReturnCorrectClaim() {
         String token = jwtService.generateToken("claimUser");
-
-        String subject = jwtService.extractClaim(token, Claims::getSubject);
-        assertEquals("claimUser", subject);
+        String claim = jwtService.extractClaim(token, Claims::getSubject);
+        assertEquals("claimUser", claim);
     }
 }

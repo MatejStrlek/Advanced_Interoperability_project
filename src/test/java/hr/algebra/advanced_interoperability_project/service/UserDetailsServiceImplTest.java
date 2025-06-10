@@ -40,24 +40,24 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
-    void loadUserByUsername_shouldReturnUserDetails_whenUserExists() {
+    void loadUserByUsername_shouldReturnUserDetails() {
         when(userRepository.findByUsername("john_doe")).thenReturn(user);
-
         UserDetails userDetails = userDetailsService.loadUserByUsername("john_doe");
 
         assertNotNull(userDetails);
         assertEquals("john_doe", userDetails.getUsername());
         assertEquals("hashed_password", userDetails.getPassword());
-        assertTrue(userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
+        assertTrue(userDetails
+                .getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
     }
 
     @Test
-    void loadUserByUsername_shouldThrowException_whenUserNotFound() {
+    void loadUserByUsername_shouldThrowException() {
         when(userRepository.findByUsername("unknown_user")).thenReturn(null);
-
         UsernameNotFoundException exception = assertThrows(UsernameNotFoundException.class,
                 () -> userDetailsService.loadUserByUsername("unknown_user"));
-
         assertEquals("Unknown user unknown_user", exception.getMessage());
     }
 }
