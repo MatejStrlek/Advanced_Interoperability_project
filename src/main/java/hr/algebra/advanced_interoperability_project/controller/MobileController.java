@@ -32,7 +32,6 @@ public class MobileController {
         return mobileService.getMobileById(id)
                 .map(mobile -> {
                             MobileSerializationUtils.serializeMobileToFile(mobile);
-
                             try {
                                 MobileDTO deserializedMobile = MobileSerializationUtils.deserializeMobileFromFileAndValidate();
                                 return ResponseEntity.ok(deserializedMobile);

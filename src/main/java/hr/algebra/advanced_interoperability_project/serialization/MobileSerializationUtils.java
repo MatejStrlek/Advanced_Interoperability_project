@@ -11,16 +11,14 @@ import java.util.Set;
 public class MobileSerializationUtils {
     private static final String FILE_NAME = "mobile.ser";
 
-    private MobileSerializationUtils() {
-        // Prevent instantiation
-    }
+    private MobileSerializationUtils() {}
 
     public static void serializeMobileToFile(MobileDTO mobileDTO) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            //oos.writeObject(new HackerDTO("Trying to exploit"));
             oos.writeObject(mobileDTO);
-            oos.writeObject(new HackerDTO("Trying to exploit"));
         } catch (IOException e) {
-            throw new RuntimeException("Error serializing mobile object", e);
+            throw new RuntimeException("Error occurred during serialization to " + FILE_NAME, e);
         }
     }
 
@@ -28,23 +26,14 @@ public class MobileSerializationUtils {
         MobileDTO mobileDTO = null;
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            Object obj;
-            boolean hasMoreObjects = true;
+            Object currentObject;
 
-            while (hasMoreObjects) {
-                try {
-                    obj = ois.readObject();
-                    validateWhiteListedObjects(obj);
-                    if (obj instanceof MobileDTO && mobileDTO == null) {
-                        mobileDTO = (MobileDTO) obj;
-                    }
-                } catch (EOFException eof) {
-                    hasMoreObjects = false;
+            for (currentObject = ois.readObject(); currentObject != null; currentObject = ois.readObject()) {
+                validateWhiteListedObjects(currentObject);
+                if (currentObject instanceof MobileDTO) {
+                    mobileDTO = (MobileDTO) currentObject;
+                    break;
                 }
-            }
-
-            if (mobileDTO == null) {
-                throw new RuntimeException("No MobileDTO object found in stream.");
             }
 
             return mobileDTO;
@@ -60,8 +49,6 @@ public class MobileSerializationUtils {
 
         String className = obj.getClass().getName();
 
-        if (!whitelist.contains(className)) {
-            throw new DeserializationWhitelistException("Class " + className + " is not whitelisted for deserialization.");
-        }
+        if (!whitelist.contains(className)) throw new DeserializationWhitelistException(className);
     }
 }
